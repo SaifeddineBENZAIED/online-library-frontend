@@ -1,5 +1,4 @@
 import { CommandeClientDto } from "./commande-client-dto";
-import { Role } from "./role";
 import { TokenDto } from "./token-dto";
 
 export class ClientDto {
@@ -11,7 +10,6 @@ export class ClientDto {
     numTelephone?: string;
     motDePasse?: string;
     tokens?: TokenDto[];
-    role?: Role;
     image?: string;
     commandes?: CommandeClientDto[];
 }

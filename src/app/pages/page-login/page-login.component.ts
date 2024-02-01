@@ -72,7 +72,6 @@ export class PageLoginComponent implements OnInit{
       this.authenticationService.setConnectedPerson(authenticationResponse);
       this.userService.findUserByEmail(this.authenticationRequest.email!).subscribe(
         (user: UserDto) => {
-          console.log(user);
           if (user){
 
             this.authenticationService.setPerson(user);

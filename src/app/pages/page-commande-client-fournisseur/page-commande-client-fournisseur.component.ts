@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommandeClientDto } from 'src/app/dto/commande-client-dto';
 import { CommandeFournisseurDto } from 'src/app/dto/commande-fournisseur-dto';
 import { LigneCommandeClientDto } from 'src/app/dto/ligne-commande-client-dto';
+import { CmdClientFournisseurPaginationService } from 'src/app/services/cmd-client-fournisseur-pagination/cmd-client-fournisseur-pagination.service';
 import { CommandeClientFournisseurService } from 'src/app/services/commande-client-fournisseur/commande-client-fournisseur.service';
 
 @Component({
@@ -18,8 +19,11 @@ export class PageCommandeClientFournisseurComponent implements OnInit {
   mapLignesCommande: Map<number, Array<any>> = new Map();
   mapPrixTotalCommande: Map<number, number> = new Map();
   errorMsg= '';
+  paginatedCmds: Array<any> = [];
+  itemsPerPage: number = 5;
+  currentPage: number = 1;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private commandeClientFournisseurService: CommandeClientFournisseurService){
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private commandeClientFournisseurService: CommandeClientFournisseurService, private cmdCltFrsPagination: CmdClientFournisseurPaginationService){
     
   }
 
@@ -36,6 +40,8 @@ export class PageCommandeClientFournisseurComponent implements OnInit {
       .subscribe(cmd => {
         if(cmd.length > 0){
           this.listeCommandes = cmd as Array<CommandeClientDto>;
+          this.cmdCltFrsPagination.setListcmd(this.listeCommandes);
+          this.paginatedCmds = this.cmdCltFrsPagination.getPaginatedcmds(this.currentPage);
           this.findAllLignesCommande();
         }else{
           this.errorMsg = 'Pas de commandes client';
@@ -46,6 +52,8 @@ export class PageCommandeClientFournisseurComponent implements OnInit {
       .subscribe(cmd => {
         if(cmd.length > 0){
           this.listeCommandes = cmd as Array<CommandeFournisseurDto>;
+          this.cmdCltFrsPagination.setListcmd(this.listeCommandes);
+          this.paginatedCmds = this.cmdCltFrsPagination.getPaginatedcmds(this.currentPage);
           this.findAllLignesCommande();
         }else{
           this.errorMsg = 'Pas de commandes fournisseur';
@@ -104,5 +112,11 @@ export class PageCommandeClientFournisseurComponent implements OnInit {
     } else {
       this.errorMsg = event;
     }
+  }
+
+  onPageChange(pageNumber: number): void {
+    this.currentPage = pageNumber;
+    this.cmdCltFrsPagination.onPageChange(pageNumber);
+    this.paginatedCmds = this.cmdCltFrsPagination.getPaginatedcmds(pageNumber);
   }
 }

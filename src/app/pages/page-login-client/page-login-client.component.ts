@@ -12,7 +12,6 @@ import { ClientFournisseurService } from 'src/app/services/client-fournisseur/cl
   styleUrls: ['./page-login-client.component.scss']
 })
 export class PageLoginClientComponent implements OnInit{
-  email: string = '';
   password: string = '';
   showPassword: boolean = false;
 
@@ -38,8 +37,6 @@ export class PageLoginClientComponent implements OnInit{
   }
 
   login() {
-    this.authenticationRequest.email = this.email;
-    this.authenticationRequest.motDePasse = this.password;
     this.authenticationService.loginClient(this.authenticationRequest).subscribe({
       next: (data) => {
         if (data) {

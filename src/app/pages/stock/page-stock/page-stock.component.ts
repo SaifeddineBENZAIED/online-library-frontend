@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleDto } from 'src/app/dto/article-dto';
 import { StockDto } from 'src/app/dto/stock-dto';
+import { ArticlePaginationService } from 'src/app/services/article-pagination/article-pagination.service';
 import { ArticleService } from 'src/app/services/article/article.service';
 import { StockService } from 'src/app/services/stock/stock.service';
 
@@ -16,19 +17,25 @@ export class PageStockComponent implements OnInit{
   listArticles: Array<ArticleDto> = [];
   stockErrMsg = '';
 
-  paginatedUsers: Array<any> = [];
+  paginatedArticles: Array<ArticleDto> = [];
   itemsPerPage: number = 5;
   currentPage: number = 1;
 
-  constructor(private stockService: StockService, private articleService: ArticleService) {}
+  constructor(private stockService: StockService, private articleService: ArticleService, private articlePaginationService: ArticlePaginationService) {}
 
   ngOnInit(): void {
     this.articleService.findAll().subscribe(
       res => {
         this.listArticles = res;
+        this.articlePaginationService.setListArticle(this.listArticles);
+        this.paginationOfArticles();
         this.findMvmntStock();
       }
     );
+  }
+
+  paginationOfArticles() {
+    this.paginatedArticles = this.articlePaginationService.getPaginatedArticles(this.currentPage);
   }
 
   findMvmntStock() {
@@ -70,6 +77,12 @@ export class PageStockComponent implements OnInit{
     } else {
       this.stockErrMsg = event;
     }
+  }
+
+  onPageChange(pageNumber: number): void {
+    this.currentPage = pageNumber;
+    this.articlePaginationService.onPageChange(pageNumber);
+    this.paginatedArticles = this.articlePaginationService.getPaginatedArticles(pageNumber);
   }
 
 }

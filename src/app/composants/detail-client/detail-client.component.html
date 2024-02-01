@@ -4,7 +4,7 @@
             <img [src]="client.image ? client.image : 'assets/clientImg.png'" height="100px" width="100px">
         </div>
     </div>
-    <div class="col-md-6 m-0 border-right d-flex align-items-center justify-content-center border-right">
+    <div class="col-md-3 m-0 border-right d-flex align-items-center justify-content-center border-right">
         <div class="col">
             <div class="row">
                 <div><i class="fa-solid fa-address-card"></i>&nbsp;&nbsp;<i>Nom : </i> {{client.nom}} </div>
@@ -13,13 +13,17 @@
                 <div><i class="fa-solid fa-address-card"></i>&nbsp;&nbsp;<i>Prénom : </i> {{client.prenom}} </div>
             </div>
             <div class="row">
+                <div><i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;<i>Adresse : </i>{{client.adresse}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 m-0 border-right d-flex align-items-center justify-content-center border-right">
+        <div class="col">
+            <div class="row mb-1">
                 <div><i class="fa-solid fa-square-phone"></i>&nbsp;&nbsp;{{client.numTelephone}}</div>
             </div>
             <div class="row">
                 <div><i class="fa-solid fa-envelope"></i>&nbsp;{{client.email}}</div>
-            </div>
-            <div class="row">
-                <div><i class="fa-solid fa-location-dot"></i>&nbsp;{{client.adresse}}</div>
             </div>
         </div>
     </div>

@@ -41,7 +41,6 @@ export class PageInscriptionComponent implements OnInit {
   }
 
   inscrire(): void{
-    console.log(this.userDto);
     if(this.userDto.motDePasse === this.password2 && this.role){
       this.userDto.role = this.role;
       this.authService.register(this.userDto).subscribe({

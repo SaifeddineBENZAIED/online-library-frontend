@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="row mb-1">
-            <div class="accordion d-flex align-items-center justify-content-center" id="accordionExample" *ngFor="let cmd of listeCommandes">
+            <div class="accordion d-flex align-items-center justify-content-center" id="accordionExample" *ngFor="let cmd of paginatedCmds">
                 <div class="accordion-item border-0">
                   <div class="row border-edit">
                     <div class="col-md-11">
@@ -116,8 +116,9 @@
             </div>
         </div>
     </div>
-    <div class="row dernier-enfant" *ngIf="listeCommandes.length">
-        <app-pagination></app-pagination>
+    <br>
+    <div class="row dernier-enfant" *ngIf="(listeCommandes.length / itemsPerPage) > 1">
+        <app-pagination [totalItems]="listeCommandes.length" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (pageChange)="onPageChange($event)"></app-pagination>
     </div>
 
 

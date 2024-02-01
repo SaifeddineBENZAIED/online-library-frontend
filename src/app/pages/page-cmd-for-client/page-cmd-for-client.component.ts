@@ -4,6 +4,7 @@ import { ClientDto } from 'src/app/dto/client-dto';
 import { CommandeClientDto } from 'src/app/dto/commande-client-dto';
 import { LigneCommandeClientDto } from 'src/app/dto/ligne-commande-client-dto';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { CmdClientFournisseurPaginationService } from 'src/app/services/cmd-client-fournisseur-pagination/cmd-client-fournisseur-pagination.service';
 import { CommandeClientFournisseurService } from 'src/app/services/commande-client-fournisseur/commande-client-fournisseur.service';
 
 @Component({
@@ -19,8 +20,11 @@ export class PageCmdForClientComponent {
   mapPrixTotalCommande: Map<number, number> = new Map();
   errorMsg= '';
   origin= 'client';
+  paginatedCmds: Array<any> = [];
+  itemsPerPage: number = 5;
+  currentPage: number = 1;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private authService: AuthenticationService, private commandeClientService: CommandeClientFournisseurService){
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private authService: AuthenticationService, private commandeClientService: CommandeClientFournisseurService , private cmdCltPagination: CmdClientFournisseurPaginationService){
     
   }
 
@@ -34,6 +38,8 @@ export class PageCmdForClientComponent {
       .subscribe(cmd => {
         if(cmd.length > 0){
           this.listeCommandes = cmd as Array<CommandeClientDto>;
+          this.cmdCltPagination.setListcmd(this.listeCommandes);
+          this.paginatedCmds = this.cmdCltPagination.getPaginatedcmds(this.currentPage);
           this.findAllLignesCommande();
         }else{
           this.errorMsg = 'Pas de commandes client';
@@ -98,5 +104,11 @@ export class PageCmdForClientComponent {
         }
       });
     }
+  }
+
+  onPageChange(pageNumber: number): void {
+    this.currentPage = pageNumber;
+    this.cmdCltPagination.onPageChange(pageNumber);
+    this.paginatedCmds = this.cmdCltPagination.getPaginatedcmds(pageNumber);
   }
 }

@@ -9,7 +9,7 @@
     </div>
     <div class="col m-3">
         <div class="container">
-            <div class="accordion m-1" id="accordionExample" *ngFor="let article of listArticles">
+            <div class="accordion m-1" id="accordionExample" *ngFor="let article of paginatedArticles">
                 <div class="accordion-item border-0">
                     <div class="row border-edit">
                         <div class="col-md-11">
@@ -39,8 +39,9 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <app-pagination></app-pagination>
+    <br>
+    <div class="row dernier-enfant" *ngIf="(listArticles.length / itemsPerPage) > 1">
+        <app-pagination [totalItems]="listArticles.length" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (pageChange)="onPageChange($event)"></app-pagination>
     </div>
 
 
