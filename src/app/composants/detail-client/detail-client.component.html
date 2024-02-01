@@ -1,0 +1,59 @@
+<div class="row mb-1 border-edit">
+    <div class="col-md-2 m-0 text-center">
+        <div class="border-right">
+            <img [src]="client.image ? client.image : 'assets/clientImg.png'" height="100px" width="100px">
+        </div>
+    </div>
+    <div class="col-md-6 m-0 border-right d-flex align-items-center justify-content-center border-right">
+        <div class="col">
+            <div class="row">
+                <div><i class="fa-solid fa-address-card"></i>&nbsp;&nbsp;<i>Nom : </i> {{client.nom}} </div>
+            </div>
+            <div class="row">
+                <div><i class="fa-solid fa-address-card"></i>&nbsp;&nbsp;<i>Prénom : </i> {{client.prenom}} </div>
+            </div>
+            <div class="row">
+                <div><i class="fa-solid fa-square-phone"></i>&nbsp;&nbsp;{{client.numTelephone}}</div>
+            </div>
+            <div class="row">
+                <div><i class="fa-solid fa-envelope"></i>&nbsp;{{client.email}}</div>
+            </div>
+            <div class="row">
+                <div><i class="fa-solid fa-location-dot"></i>&nbsp;{{client.adresse}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 m-0 d-flex align-items-center justify-content-center">
+        <div class="row">
+            <div class="col-md-4 ">
+                <button type="button" class="btn btn-link" (click)="modifierClient()"><i class="fa-solid fa-pencil"></i>Modifier</button>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-link text-danger" data-bs-toggle="modal" [attr.data-bs-target]="'#deleteClientModal' + client.id"><i class="fa-regular fa-trash-can"></i>Supprimer</button>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-link"><i class="fa-solid fa-clipboard-list"></i>Details</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteClientModal{{client.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirmer la suppression</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Est-ce que vous etes sur de supprimer ce client ? <u>Il sera supprimer definitivement !!</u>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i>Annuler</button>
+                    <button type="button" class="btn btn-danger" (click)="confSuppressionClient()" data-bs-dismiss="modal"><i class="fa-regular fa-trash-can"></i>Supprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

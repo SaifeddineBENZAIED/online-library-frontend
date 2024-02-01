@@ -1,0 +1,90 @@
+<div class="col p-2 m-1">
+    <div class="col-md-12 mb-2">
+        <button (click)="fileInput.click()" style="background-color: transparent; border: none;">
+            <img [src]="imageUrl" class="rounded-circle" height="150px" width="150px">
+            <input type="file" hidden #fileInput (change)="selectFileImg(fileInput.files)">
+        </button>
+    </div>
+    <hr style="margin-left: 20px; margin-right: 20px;">
+    <div class="col-md-12">
+        <div class="col-md-12 m-2">
+            <h4><i class="fa-solid fa-circle-info"></i>&nbsp;Informations de l'utilisateur</h4>
+        </div>
+        <div class="row m-3 alert alert-danger d-flex justify-content-center align-items-center border-editer" *ngIf="errorMsg.length > 0">
+            {{errorMsg}}
+        </div>
+        <form>
+            <div class="row m-2">
+                <div class="col-md-6 form-floating mb-3">
+                    <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="utilisateurDto.nom" placeholder="nom">
+                    <label for="nom">Nom</label>
+                </div>
+                <div class="col-md-6 form-floating mb-3">
+                    <input type="text" class="form-control" id="adresse" name="adresse" [(ngModel)]="utilisateurDto.adresse" placeholder="Adresse">
+                    <label for="adresse">Adresse</label>
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="col-md-6 form-floating mb-3">
+                    <input type="text" class="form-control" id="prenom" name="prenom" [(ngModel)]="utilisateurDto.prenom" placeholder="Prenom">
+                    <label for="prenom">Prenom</label>
+                </div>
+                <div class="col-md-6 form-floating mb-3">
+                    <input type="text" class="form-control" id="dateNaissance" name="dateNaissance" [(ngModel)]="utilisateurDto.dateNaissance" placeholder="Date de naissance">
+                    <label for="dateNaissance">Date de naissance</label>
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="col-md-6 form-floating mb-3">
+                    <input type="email" class="form-control" id="email" name="email" [(ngModel)]="utilisateurDto.email" placeholder="Email">
+                    <label for="email">Email</label>
+                </div>
+                <div class="col-md-6 form-floating mb-3">
+                    <select class="form-select" aria-label="Default select example" id="role" name="role" [(ngModel)]="role">
+                        <option [ngValue]="undefined" disabled>Selectez un role</option>
+                        <option [ngValue]="roleValues[0]">USER</option>
+                        <option [ngValue]="roleValues[1]">ADMIN</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="col-md-6 form-floating mb-3">
+                    <input type="text" class="form-control" id="numTelephone" name="numTelephone" [(ngModel)]="utilisateurDto.numTelephone" placeholder="Numero Telephone">
+                    <label for="numTelephone">Numero Telephone</label>
+                </div>
+                <div class="col-md-5 form-floating mb-3" *ngIf="editing === false">
+                        <input
+                        type="{{ showPassword ? 'text' : 'password' }}"
+                        class="form-control flex-grow-1"
+                        id="motDePasse"
+                        placeholder="Mot de passe"
+                        [(ngModel)]="password"
+                        name="motDePasse"
+                        required
+                        [(ngModel)]="utilisateurDto.motDePasse"
+                        />
+                        <label for="motDePasse">Mot de passe</label>
+                </div>
+                <div class="col-md-1 form-floating d-flex justify-content-center align-items-center" *ngIf="editing === false">
+                    <span class="password-toggle-icon" (click)="togglePasswordVisibility()">
+                        <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                      </span>
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="col-md-3">
+                
+                </div>
+                <div class="col-md-6 d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-danger" (click)="cancelClick()"><i class="fa-solid fa-ban"></i>&nbsp;Annuler</button>
+                    &nbsp;&nbsp;
+                    <button type="button" class="btn btn-primary" (click)="saveClick()"><i class="fa-solid fa-floppy-disk"></i>&nbsp;Enregistrer</button>
+                </div>
+                <div class="col-md-3">
+                
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

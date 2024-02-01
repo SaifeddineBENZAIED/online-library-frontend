@@ -1,0 +1,31 @@
+<div class="accordion accordion-flush" id="accordionFlushExample" *ngIf="!isClient">
+    <div class="accordion-item" *ngFor="let menu of menuProperties">
+        <div class="accordion-header" id="menu{{menu.id}}">
+            <h2>
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#accordion-collapse' + menu.id" aria-expanded="false" [attr.aria-controls]="'accordion-collapse' + menu.id">
+                    <i class="{{menu.icon}}"></i>
+                    {{menu.titre}}
+                </button>
+            </h2>
+        </div>
+        <div id="accordion-collapse{{menu.id}}" class="accordion-collapse collapse" [attr.aria-labelledby]="'menu' + menu.id" [attr.data-bs-parent]="'#accordionFlushExample'">
+            <div class="accordion-body" *ngFor="let sousMenu of menu.sousMenu" [ngClass]="{'text-primary bg-body-secondary': sousMenu.active, '': !sousMenu.active}"><a href="javascript:void(0);" (click)="navigate(sousMenu)"><i class="{{sousMenu.icon}}"></i>&nbsp;{{sousMenu.titre}}</a></div>
+        </div>
+    </div>
+</div>
+
+<div class="accordion accordion-flush" id="accordionFlushExample" *ngIf="isClient">
+    <div class="accordion-item" *ngFor="let menu of menuPropertiesForClient">
+        <div class="accordion-header" id="menu{{menu.id}}">
+            <h2>
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#accordion-collapse' + menu.id" aria-expanded="false" [attr.aria-controls]="'accordion-collapse' + menu.id">
+                    <i class="{{menu.icon}}"></i>
+                    {{menu.titre}}
+                </button>
+            </h2>
+        </div>
+        <div id="accordion-collapse{{menu.id}}" class="accordion-collapse collapse" [attr.aria-labelledby]="'menu' + menu.id" [attr.data-bs-parent]="'#accordionFlushExample'">
+            <div class="accordion-body" *ngFor="let sousMenu of menu.sousMenu" [ngClass]="{'text-primary bg-body-secondary': sousMenu.active, '': !sousMenu.active}"><a href="javascript:void(0);" (click)="navigateForClient(sousMenu)"><i class="{{sousMenu.icon}}"></i>&nbsp;{{sousMenu.titre}}</a></div>
+        </div>
+    </div>
+</div>

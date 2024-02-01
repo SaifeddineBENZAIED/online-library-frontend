@@ -1,0 +1,70 @@
+<div class="col p-2 m-2 conteneur-parent">
+    <div class="row m-3">
+        <div class="col-md-7 p-0">
+            <h3>Commande {{origin}}</h3>
+        </div>
+        <div class="col-md-5 text-end">
+            <app-bouton-action (clickEvent)="nouvelleCommande()"></app-bouton-action>
+        </div>
+    </div>
+    <div class="col m-1">
+        <div class="alert alert-danger text-center" *ngIf="errorMsg.length > 0">
+            {{errorMsg}}
+        </div>
+        <div class="accordion d-flex align-items-center justify-content-center" id="accordionExample" *ngFor="let cmd of listeCommandes">
+            <div class="accordion-item border-0">
+              <!--<h6 class="accordion-header border-edit">
+                <div class="col-md-11">
+                    <app-detail-commande-client-fournisseur
+                        [origin]="origin"
+                        [commande]="cmd">
+                    </app-detail-commande-client-fournisseur>
+                </div>
+                <div class="col-md-1">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        [attr.data-bs-target]="'#collapseOne'+cmd.id"
+                        aria-expanded="true"
+                        aria-controls="'collapseOne'+cmd.id">
+                    </button>
+                </div>
+              </h6>-->
+              <div class="row border-edit">
+                <div class="col-md-11">
+                    <h6 class="accordion-header">
+                        <app-detail-commande-client-fournisseur
+                            [origin]="origin"
+                            [commande]="cmd"
+                            (suppressionEvent)="handleSuppression($event)">
+                        </app-detail-commande-client-fournisseur>
+                    </h6>
+                </div>
+                <div class="col-md-1 d-flex align-items-center justify-content-center">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        [attr.data-bs-target]="'#collapseOne'+cmd.id"
+                        aria-expanded="true"
+                        aria-controls="'collapseOne'+cmd.id">
+                    </button>
+                </div>
+              </div>
+              <div id="collapseOne{{cmd.id}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample" style="max-height: 150px; overflow-y: scroll;">
+                <div class="accordion-body" *ngFor="let ligne of mapLignesCommande.get(cmd.id)">
+                    <app-detail-commande
+                        [ligneCommande]="ligne"
+                    ></app-detail-commande>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-6 text-start"><h6>{{mapLignesCommande.get(cmd.id)?.length ?? 0}} articles commandés</h6></div>
+                    <div class="col-md-6 text-end"><h6>Montant Total : {{ calculerTotalCommande(cmd.id) }}</h6></div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row dernier-enfant" *ngIf="listeCommandes.length">
+        <app-pagination></app-pagination>
+    </div>
+
+
+</div>

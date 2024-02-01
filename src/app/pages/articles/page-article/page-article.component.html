@@ -1,0 +1,25 @@
+<div class="col conteneur-parent m-2">
+    <div class="row m-3">
+        <div class="col-md-7 p-0">
+            <h3>Listes des articles</h3>
+        </div>
+        <div class="col-md-5 text-end">
+            <app-bouton-action (clickEvent)="nouvelArticle()"></app-bouton-action>
+        </div>
+    </div>
+    <div class="col m-3">
+        <div class="row p-3 d-flex justify-content-center align-items-center border-editer text-danger" *ngIf="!(listArticle.length > 0)">
+            Pas des articles enregistrées
+        </div>
+        <div class="row m-3 alert alert-danger d-flex justify-content-center align-items-center border-editer" *ngIf="artErrorMsg.length > 0">
+            {{artErrorMsg}}
+        </div>
+        <app-detail-article *ngFor="let article of paginatedArticles" [articleDto]="article" (suppressionEvent)="handleSuppression($event)"></app-detail-article>
+    </div>
+    <br><br>
+    <div class="row dernier-enfant" *ngIf="(listArticle.length / itemsPerPage) > 1">
+        <app-pagination [totalItems]="listArticle.length" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (pageChange)="onPageChange($event)"></app-pagination>
+    </div>
+
+
+</div>

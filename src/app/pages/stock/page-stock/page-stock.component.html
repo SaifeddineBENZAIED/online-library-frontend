@@ -1,0 +1,47 @@
+<div class="col m-2">
+    <div class="row m-3">
+        <div class="col-md-7 p-0">
+            <h3>Mouvements de stocks</h3>
+        </div>
+        <div class="col-md-5 text-end">
+            <app-bouton-action></app-bouton-action>
+        </div>
+    </div>
+    <div class="col m-3">
+        <div class="container">
+            <div class="accordion m-1" id="accordionExample" *ngFor="let article of listArticles">
+                <div class="accordion-item border-0">
+                    <div class="row border-edit">
+                        <div class="col-md-11">
+                            <h6 class="accordion-header">
+                                <div class="row m-3 alert alert-danger d-flex justify-content-center align-items-center border-editer" *ngIf="stockErrMsg.length > 0">
+                                    {{stockErrMsg}}
+                                </div>
+                                <app-detail-stock-article [stockReel]="listStocksReels.get(article.id!)" [article]="article" (suppressionEvent)="handleSuppression($event)"></app-detail-stock-article>
+                          </h6>
+                        </div>
+                        <div class="col-md-1 d-flex align-items-center justify-content-center" *ngIf="listStocks.get(article.id!)!.length > 0">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    [attr.data-bs-target]="'#collapseOne'+article.id" aria-expanded="false"
+                                    aria-controls="'collapseOne'+article.id">
+                            </button>
+                        </div>
+                    </div>
+    
+                    <div id="collapseOne{{article.id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="max-height: 150px; overflow-y: scroll;">
+                        <div class="accordion-body" *ngFor="let stock of listStocks.get(article.id!)">
+                            <div class="row" >
+                                <app-detail-stock [stock]="stock"></app-detail-stock>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <app-pagination></app-pagination>
+    </div>
+
+
+</div>

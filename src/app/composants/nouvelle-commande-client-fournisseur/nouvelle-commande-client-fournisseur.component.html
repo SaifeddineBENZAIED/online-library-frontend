@@ -1,0 +1,121 @@
+<div class="col m-1 custom-background">
+    <div class="col-md-12">
+        <div class="col-md-12 m-2 mt-3">
+            <h4>{{newOrEdit}} commande {{origin}}</h4>
+        </div>
+        <div class="row m-2 border-editer">
+            <div class="col-md-3 p-2 form-floating border-right-cmd-CF m-2">
+                <div class="row m-3 alert alert-danger d-flex justify-content-center align-items-center border-editer" *ngIf="errorMsg.length > 0">
+                    {{errorMsg}}
+                </div>
+                <form>
+                    <div class="row form-floating mb-3">
+                        <input type="text" readonly class="form-control-plaintext" id="codeCommande" name="codeCommande" placeholder="Code de la commande" [(ngModel)]="codeCommande">
+                        <label for="codeCommande"><i class="fa-solid fa-qrcode"></i>&nbsp;Code de la commande</label>
+                    </div>
+                    <div class="row form-floating mb-3">
+                        <input type="text" readonly class="form-control-plaintext" id="date" name="date" placeholder="Date de la commande" [(ngModel)]="date">
+                        <label for="date"><i class="fa-solid fa-calendar"></i>&nbsp;Date de la commande</label>
+                    </div>
+                    <div class="row form-floating mb-3">
+                        <select class="form-select form-select-sm" aria-label="Small select example" name="cltFrs" [(ngModel)]="selectedClientFournisseur" (change)="generateCommandCode()">
+                        <option [value]="{}" selected disabled >Selectionner le {{origin}}</option>
+                        <option *ngFor="let obj of listClientsFournisseurs" [ngValue]="obj">{{ obj.nom }}&nbsp;{{ obj.prenom }}</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6 form-floating border-right-cmd-CF m-2" *ngIf="selectedClientFournisseur.nom">
+                <div class="row form-floating mb-3">
+                    <div class="col-md-2">
+                        <i class="fa-solid fa-address-card"></i>
+                    </div>
+                    <div class="col-md-12" *ngIf="selectedClientFournisseur.nom">
+                        {{ selectedClientFournisseur.nom }} {{ selectedClientFournisseur.prenom }}
+                    </div>
+                </div>
+                <div class="row form-floating mb-3">
+                    <div class="col-md-2">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div class="col-md-12" *ngIf="selectedClientFournisseur.email">
+                        {{ selectedClientFournisseur.email }}
+                    </div>
+                </div>
+                <div class="row form-floating mb-3">
+                    <div class="col-md-2">
+                        <i class="fa-solid fa-square-phone"></i>
+                    </div>
+                    <div class="col-md-12" *ngIf="selectedClientFournisseur.numTelephone">
+                        {{ selectedClientFournisseur.numTelephone }}
+                    </div>
+                </div>
+                <div class="row form-floating mb-3" *ngIf="selectedClientFournisseur.nom">
+                    <div class="col-md-2">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                    </div>
+                    <div class="col-md-12">
+                        EN PREPARATION
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 form-floating m-2 p-3" *ngIf="selectedClientFournisseur.nom">
+                <img [src]="selectedClientFournisseur.image ? selectedClientFournisseur.image : defaultImg" class="rounded-circle" height="150px" width="150px">
+            </div>
+        </div>
+        <div class="row m-1 border-editer">
+            <div class="col form-floating border-right-cmd-CF">
+                <input type="text" class="form-control" id="nomArticle" name="nomArticle" placeholder="Nom de l'article" aria-label="articleName" [(ngModel)]="nomArticle" (input)="filtrerArticle()">
+                <label for="nomArticle" class="text-muted">Nom et description de l'article</label>
+                <div *ngIf="nomArticle.length && !articleNotYetSelected" class="autocomplete shadow p-3 mb-5 bg-white rounded">
+                    <p class="p-1" *ngFor="let article of listArticle"
+                       (click)="selectArticleClick(article)"
+                    >
+                      {{ article.nomArticle }}&nbsp; {{ article.description }}
+                    </p>
+                </div>
+              </div>
+              <div class="col form-floating border-right-cmd-CF">
+                <input type="text" class="form-control" id="quantite" name="quantite" [(ngModel)]="quantite" placeholder="Quantite" aria-label="quantite">
+                <label for="quantite" class="text-muted">Quantite</label>
+              </div>
+              <div class="col form-floating border-right-cmd-CF">
+                <input type="text" class="form-control" id="searchedArticle.prixUnitaireTTC" name="searchedArticle.prixUnitaireTTC" placeholder="Montant" [(ngModel)]="searchedArticle.prixUnitaireTTC" aria-label="montant">
+                <label for="searchedArticle.prixUnitaireTTC" class="text-muted">Montant</label>
+              </div>
+              <div class="col d-flex justify-content-center">
+                <button type="button" class="btn btn-success" style="width: 150px; height: 50px; margin-top: 2px;" (click)="ajouterLigneCommande()"><i class="fa-solid fa-plus"></i></button>
+              </div>
+        </div>
+        <div class="row m-1 p-3 border-editer" style="max-height: 250px; overflow-y: scroll;">
+            <div *ngFor="let ligne of lignesCommande">
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class="col-md-11">
+                        <app-detail-commande [ligneCommande]="ligne"></app-detail-commande>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-link text-danger" (click)="suppLigneCmd(ligne)">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-1 p-3 border-editer">
+            <div class="col-md-6 text-start">
+                <!--<h5>Nombre des articles commandés : {{ totalQuantite }}</h5>-->
+            </div>
+            <div class="col-md-6 text-end">
+                <h5>Montant total : {{ totalCommande }}</h5>
+            </div>
+        </div>
+        <div class="row m-1">
+            <div class="col d-flex justify-content-end align-items-end">
+                <button type="button" class="btn btn-danger" (click)="cancelClick()"><i class="fa-solid fa-ban"></i>&nbsp;Annuler</button>
+                &nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" (click)="saveClick()"><i class="fa-solid fa-floppy-disk"></i>&nbsp;Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+</div>

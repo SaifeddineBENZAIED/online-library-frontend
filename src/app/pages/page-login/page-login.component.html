@@ -1,0 +1,45 @@
+<form>
+    <div class="container my-container">
+  
+      <div class="card justify-content-md-center">
+          <div class="card-header text-center">
+          <h3>Se connecter</h3>
+          </div>
+  
+          <div class="card-body">
+            <div class="alert alert-danger" *ngIf="errorMessage">
+              {{errorMessage}}
+            </div>
+  
+              <div class="form-floating mb-3">
+                  <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" [(ngModel)]="authenticationRequest.email" required>
+                  <label for="email">Email</label>
+              </div>
+              <br>
+              <div class="form-floating d-flex align-items-center">
+                  <input
+                    type="{{ showPassword ? 'text' : 'password' }}"
+                    class="form-control flex-grow-1"
+                    id="motDePasse"
+                    placeholder="Mot de passe"
+                    [(ngModel)]="password"
+                    name="motDePasse"
+                    required
+                    [(ngModel)]="authenticationRequest.motDePasse"
+                  />
+                  <label for="motDePasse">Mot de passe</label>
+                  <span class="password-toggle-icon" (click)="togglePasswordVisibility()">
+                    <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                  </span>
+                </div>
+              <br><br>
+              <div class="d-flex justify-content-between">
+                  <a routerLink="/inscrire" class="btn btn-link">S'inscrire</a>
+                  <button type="button" class="btn btn-primary" (click)="login()"><i class="fa-regular fa-square-check" style="color: #ffffff;"></i> &nbsp; Se connecter</button>
+              </div>
+          </div>
+      </div>
+  
+    </div>
+  </form>
+  

@@ -1,0 +1,53 @@
+<div class="row p-3">
+    <div class="col-md-5 m-2 border-edit">
+        <br><br>
+        <div class="row m-1 p-1 d-flex justify-content-center align-items-center">
+            <img [src]="user.image ? user.image : 'assets/profilImg.png'" class="rounded-circle" height="150px" width="150px">
+        </div>
+        <br>
+        <div class="row m-1 p-1 d-flex justify-content-center align-items-center">
+            <h5 class="text-center">{{user.nom}} {{user.prenom}}</h5>
+        </div>
+        <div class="row m-1 p-1 d-flex justify-content-center align-items-center">
+            <small class="form-text text-muted text-center"> {{user.adresse}} </small>
+        </div>
+        <br>
+        <div class="row m-1 p-1">
+            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                <button type="button" class="btn btn-outline-primary" (click)="modifierUser()"><h6><i class="fa-solid fa-user-pen"></i>&nbsp;Modifier</h6></button>
+            </div>
+            <div class="col-md-8 d-flex justify-content-center align-items-center">
+                <button type="button" class="btn btn-outline-info" (click)="changePassword()"><h6><i class="fa-solid fa-lock"></i>&nbsp;Changer le mot de passe</h6></button>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+
+    </div>
+    <div class="col-md-6 m-2 border-edit">
+        <div class="mb-3 row">
+            <label for="nomComplet" class="col-sm- col-form-label"><h6>Nom complet</h6></label>
+            <div class="col-sm-10">
+              <input type="text" readonly class="form-control-plaintext" id="nomComplet" name="nomComplet" [(ngModel)]="nomComplet">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="email" class="col-sm- col-form-label"><h6>Email</h6></label>
+            <div class="col-sm-10">
+              <input type="text" readonly class="form-control-plaintext" id="email" name="email" [(ngModel)]="user.email">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="numTelephone" class="col-sm- col-form-label"><h6>Numéro du téléphone</h6></label>
+            <div class="col-sm-10">
+              <input type="text" readonly class="form-control-plaintext" id="numTelephone" name="numTelephone" [(ngModel)]="user.numTelephone">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="adresse" class="col-sm- col-form-label"><h6>Adresse</h6></label>
+            <div class="col-sm-10">
+              <input type="text" readonly class="form-control-plaintext" id="adresse" name="adresse" [(ngModel)]="user.adresse">
+            </div>
+        </div>
+    </div>
+</div>

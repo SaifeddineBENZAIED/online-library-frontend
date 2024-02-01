@@ -1,0 +1,21 @@
+.my-container{
+    margin-top: 100px;
+    max-width: 550px;
+    margin-bottom: 100px;
+}
+
+.password-toggle {
+    position: relative;
+}
+  
+.password-toggle input {
+    padding-right: 30px;
+}
+  
+.password-toggle .toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

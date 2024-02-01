@@ -1,0 +1,124 @@
+<div class="col p-2 m-2 conteneur-parent">
+    <div class="row m-3">
+        <div class="col-md-7 p-0">
+            <h3>Commande Client</h3>
+        </div>
+        <div class="col-md-5 text-end">
+            <app-bouton-action (clickEvent)="nouvelleCommande()"></app-bouton-action>
+        </div>
+    </div>
+    <div class="col m-1">
+        <div class="alert alert-danger text-center" *ngIf="errorMsg.length > 0">
+            {{errorMsg}}
+        </div>
+        <div class="row m-1 p-2 border-edit">
+            <div class="col-md-5 m-0 text-center">
+                <div class="border-right">
+                    <img [src]="client.image ? client.image : 'assets/clientImg.png'" height="100px" width="100px">
+                </div>
+            </div>
+            <div class="col-md-7 m-0 d-flex align-items-center justify-content-center border-right">
+                <div class="col" *ngIf="client?.nom">
+                    <div class="row">
+                        <div><i class="fa-solid fa-address-card"></i>&nbsp;&nbsp;Nom: {{client.nom}}</div>
+                    </div>
+                    <div class="row">
+                        <div><i class="fa-solid fa-address-card"></i>&nbsp;&nbsp;Prenom: {{client.prenom}}</div>
+                    </div>
+                    <div class="row">
+                        <div><i class="fa-solid fa-square-phone"></i>&nbsp;&nbsp;Numéro de téléphone : {{client.numTelephone}}</div>
+                    </div>
+                    <div class="row">
+                        <div><i class="fa-solid fa-envelope"></i>&nbsp;&nbsp;Email : {{client.email}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-1">
+            <div class="accordion d-flex align-items-center justify-content-center" id="accordionExample" *ngFor="let cmd of listeCommandes">
+                <div class="accordion-item border-0">
+                  <div class="row border-edit">
+                    <div class="col-md-11">
+                        <h6 class="accordion-header">
+                            <div class="row mb-1">
+                                <div class="col-md-6 m-0 d-flex align-items-center justify-content-center border-right">
+                                    <div class="col">
+                                        <div class="row">
+                                            <div><i class="fa-solid fa-qrcode"></i>&nbsp;&nbsp;{{cmd.codeCC}}</div>
+                                        </div>
+                                        <div class="row">
+                                            <div><i class="fa-solid fa-calendar"></i>&nbsp;&nbsp;{{cmd.dateCommande}}</div>
+                                        </div>
+                                        <div class="row">
+                                            <div><i class="fa-solid fa-truck"></i>&nbsp;&nbsp;{{cmd.etatCommande}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 m-0 d-flex align-items-center justify-content-center">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <button type="button" class="btn btn-link" (click)="modifierClick(cmd)"><i class="fa-solid fa-sliders"></i><br>Modifier</button>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <button type="button" class="btn btn-link" data-bs-toggle="modal" [attr.data-bs-target]="'#deleteCmdModal' + cmd.id">
+                                                <i class="fa-solid fa-ban"></i><br>Supprimer
+                                            </button>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <!--<button class="accordion-button d-flex align-items-center justify-content-center border-0" type="button" style="height: 25px; width: 25px;" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></button>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            
+                            <div class="modal fade" id="deleteCmdModal{{cmd.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirmer la suppression</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Est-ce que vous etes sur de supprimer cette commande ? <u>Elle sera supprimer definitivement !!</u>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i>Annuler</button>
+                                            <button type="button" class="btn btn-danger" (click)="confSuppressionCmd(cmd)" data-bs-dismiss="modal"><i class="fa-regular fa-trash-can"></i>Supprimer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </h6>
+                    </div>
+                    <div class="col-md-1 d-flex align-items-center justify-content-center">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            [attr.data-bs-target]="'#collapseOne'+cmd.id"
+                            aria-expanded="true"
+                            aria-controls="'collapseOne'+cmd.id">
+                        </button>
+                    </div>
+                  </div>
+                  <div id="collapseOne{{cmd.id}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample" style="max-height: 150px; overflow-y: scroll;">
+                    <div class="accordion-body" *ngFor="let ligne of mapLignesCommande.get(cmd.id!)">
+                        <app-detail-commande
+                            [ligneCommande]="ligne"
+                        ></app-detail-commande>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-6 text-start"><h6>{{mapLignesCommande.get(cmd.id!)?.length ?? 0}} articles commandés</h6></div>
+                        <div class="col-md-6 text-end"><h6>Montant Total : {{ calculerTotalCommande(cmd.id!) }}</h6></div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row dernier-enfant" *ngIf="listeCommandes.length">
+        <app-pagination></app-pagination>
+    </div>
+
+
+</div>

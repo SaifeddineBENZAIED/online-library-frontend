@@ -1,0 +1,38 @@
+<div class="row mb-1 border-edit">
+    <div class="col-md-3 m-0 d-flex align-items-center justify-content-center border-right">
+        <div class="col">
+            <div class="row text-center">
+                <div><i class="fa-solid fa-qrcode"></i>&nbsp;&nbsp;{{ ligneCommande.article?.codeArticle }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 m-0 d-flex align-items-center justify-content-center border-right">
+        <div class="col">
+            <div class="row text-center">
+                <div>{{ ligneCommande.article?.nomArticle }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 m-0 border-right">
+        <div class="col">
+            <div class="row text-center">
+                <div>{{ ligneCommande.quantite }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 m-0 border-right">
+        <div class="col">
+            <div class="row text-center">
+                <div>{{ ligneCommande.prixUnitaire }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 m-0">
+        <div class="col">
+            <div class="row text-center">
+                <div>{{ ligneCommande.prixUnitaire && ligneCommande.quantite ? +ligneCommande.prixUnitaire * +ligneCommande.quantite : '' }}</div>
+            </div>
+        </div>
+    </div>
+
+</div>

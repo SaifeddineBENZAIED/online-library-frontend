@@ -1,0 +1,25 @@
+<div class="col m-2 conteneur-parent">
+    <div class="row m-3">
+        <div class="col-md-7 p-0">
+            <h3>Liste des fournisseurs</h3>
+        </div>
+        <div class="col-md-5 text-end">
+            <app-bouton-action (clickEvent)="nouveauFournisseur()"></app-bouton-action>
+        </div>
+    </div>
+    <div class="col m-3">
+        <div class="row p-3 d-flex justify-content-center align-items-center border-editer text-danger" *ngIf="!(listFournisseurs.length > 0)">
+            Pas des fournisseur enregistrées
+        </div>
+        <div class="row m-3 alert alert-danger d-flex justify-content-center align-items-center border-editer" *ngIf="errorMsg.length > 0">
+            {{errorMsg}}
+        </div>
+        <app-detail-fournisseur *ngFor="let fournisseur of paginatedFournisseurs" [fournisseur]="fournisseur" (suppressionEvent)="handleSuppression($event)"></app-detail-fournisseur>
+    </div>
+    <br><br>
+    <div class="row dernier-enfant" *ngIf="(listFournisseurs.length / itemsPerPage) > 1">
+        <app-pagination [totalItems]="listFournisseurs.length" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (pageChange)="onPageChange($event)"></app-pagination>
+    </div>
+
+
+</div>

@@ -1,0 +1,45 @@
+<div class="row mb-1 border-edit">
+    <div class="col-md-3 m-0 d-flex align-items-center justify-content-center border-right">
+        <div class="col">
+            <div class="row text-center">
+                <div><i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;{{ stock.dateMvmnt }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 m-0 d-flex align-items-center justify-content-center border-right">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="row text-center">
+                    <div><h6>Quantite( {{ stock.quantite }} )</h6></div>
+                </div>
+            </div>
+            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                <i class="fa-solid fa-cubes-stacked"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 m-0 d-flex align-items-center justify-content-center border-right">
+        <div class="row">
+            <div class="col-md-9 text-center">
+                <h6>{{ stock.typeMvmntStck }}</h6>
+            </div>
+            <div class="col-md-3">
+                <i class="fa-regular fa-square-{{mvmntNegIcon}}" *ngIf="stock.typeMvmntStck === 'SORTIE' || stock.typeMvmntStck === 'CORRECTION_NEG'"></i>
+                <i class="fa-regular fa-square-{{mvmntPosIcon}}" *ngIf="stock.typeMvmntStck === 'ENTREE' || stock.typeMvmntStck === 'CORRECTION_POS'"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 m-0 d-flex align-items-center justify-content-center ">
+        <div class="row">
+            <div class="col-md-2">
+                <i class="fa-solid fa-user-minus" *ngIf="stock.sourceMvmntStck === 'COMMANDE_CLIENT'"></i>
+                <i class="fa-solid fa-user-plus" *ngIf="stock.sourceMvmntStck === 'COMMANDE_FOURNISSEUR'"></i>
+                <i class="fa-solid fa-check-double" *ngIf="stock.sourceMvmntStck === 'CORRECTION'"></i>
+            </div>
+            <div class="col-md-10 text-center">
+                <h6>{{ stock.sourceMvmntStck }}</h6>
+            </div>
+        </div>
+    </div>
+
+</div>

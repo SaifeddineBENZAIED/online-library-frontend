@@ -1,0 +1,6 @@
+export enum TypeMvmntStock {
+    ENTREE = 'ENTREE',
+    SORTIE = 'SORTIE',
+    CORRECTION_POS = 'CORRECTION_POS',
+    CORRECTION_NEG = 'CORRECTION_NEG',
+}

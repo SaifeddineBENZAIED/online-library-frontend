@@ -1,0 +1,74 @@
+<div class="col m-1 custom-background">
+    <div class="col-md-12 mb-2">
+        <button (click)="fileInput.click()" style="background-color: transparent; border: none;">
+            <img [src]="imageUrl" class="rounded-circle" height="150px" width="150px">
+            <input type="file" hidden #fileInput (change)="selectFileImg(fileInput.files)">
+        </button>
+    </div>
+    <hr style="margin-left: 20px; margin-right: 20px;">
+    <div class="col-md-12">
+        <div class="col-md-12 m-2">
+            <h4><i class="fa-solid fa-circle-info"></i>&nbsp;Informations de l'article</h4>
+        </div>
+        <div class="alert alert-danger" *ngIf="errorMsg.length > 0">
+            {{errorMsg}}
+        </div>
+        <form>
+            <div class="row m-2">
+                <div class="col-md-6 form-floating mb-3">
+                    <input type="text" class="form-control" id="nomArticle" name="nomArticle" [(ngModel)]="articleDto.nomArticle" placeholder="nom">
+                    <label for="nomArticle">Nom d'article</label>
+                </div>
+                <div class="col-md-6 form-floating mb-3">
+                    <input type="text" class="form-control" id="description" name="description" [(ngModel)]="articleDto.description" placeholder="description">
+                    <label for="description">Description de l'article</label>
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="col-md-6 form-floating mb-3">
+                    <input type="text" class="form-control" id="codeArticle" name="codeArticle" [(ngModel)]="articleDto.codeArticle" placeholder="code">
+                    <label for="codeArticle">Code d'article</label>
+                </div>
+                <div class="col-md-6 form-floating mb-3">
+                    <input type="text" class="form-control" id="tauxTVA" name="tauxTVA" (input)="calculerPrixTTC()" [(ngModel)]="articleDto.tauxTVA" placeholder="Taux TVA">
+                    <label for="tauxTVA">Taux TVA</label>
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="col-md-6 form-floating mb-3">
+                    <input type="text" class="form-control" id="prixUnitaireHT" name="prixUnitaireHT" (input)="calculerPrixTTC()" [(ngModel)]="articleDto.prixUnitaireHT" placeholder="Prix HT">
+                    <label for="prixUnitaireHT">Prix HT</label>
+                </div>
+                <div class="col-md-6 form-floating mb-3">
+                    <input type="text" class="form-control" id="prixUnitaireTTC" name="prixUnitaireTTC" readonly [(ngModel)]="articleDto.prixUnitaireTTC" placeholder="Prix TTC">
+                    <label for="prixUnitaireTTC">Prix TTC</label>
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="col-md-6 form-floating mb-3">
+                    <select class="form-select" aria-label="Default select example" id="categorie" name="categorie" [(ngModel)]="categorie">
+                        <option [ngValue]="null" disabled selected>Selectez une categorie</option>
+                        <option *ngFor="let cat of categorieList" [ngValue]="cat" >{{cat}}</option>
+                    </select>
+                </div>
+                <div class="col-md-6 form-floating mb-3">
+                    
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="col-md-5">
+    
+                </div>
+                <div class="col-md-6 d-flex justify-content-end align-items-end">
+                    <button type="button" class="btn btn-danger" (click)="cancelClick()"><i class="fa-solid fa-ban"></i>&nbsp;Annuler</button>
+                    &nbsp;&nbsp;
+                    <button type="button" class="btn btn-primary" (click)="saveArticle()"><i class="fa-solid fa-floppy-disk"></i>&nbsp;Enregistrer</button>
+                </div>
+                <div class="col-md-1">
+                    
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,34 @@
+<div class="main-container">
+    <div class="row min-height-600 no-flex-wrap">
+        <div class="card col-md-2 marg-r">
+            <div class="col">
+                <div class="border-non mt-3 mb-2">
+                    <h5 class="text-center" appTextColor>Librairie</h5>
+                </div>
+                <br>
+                <div>
+                    <app-menu *ngIf="!isAchatPage"></app-menu>
+                </div>
+            </div>
+        </div>
+        <div class="card col-md-10 pl-0 pr-0 background-beige border-0 border-non">
+            <div class="col pl-0 pr-0 d-flex flex-column justify-content-between">
+                <div class="card p-3 min-height-70 mb-2">
+                    <app-header></app-header>
+                </div>
+                <div class="card mb-2" style="min-height: 500px;">
+                    <app-loader></app-loader>
+
+                    <app-dash-content *ngIf="showContent"></app-dash-content>
+
+                    <router-outlet></router-outlet>
+                </div>
+                <div class="card min-height-70">
+                    <app-footer></app-footer>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

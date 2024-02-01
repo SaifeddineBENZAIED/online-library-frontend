@@ -1,0 +1,131 @@
+<div class="container my-container">
+
+    <div class="card justify-content-md-center">
+        <div class="card-header text-center">
+        <h3>S'incrire</h3>
+        </div>
+
+        <div class="card-body">
+            <div class="alert alert-danger" *ngIf="errorMessages.length > 0">
+                <div *ngFor="let msg of errorMessages">
+                    <span>{{msg}}</span>
+                </div>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="userDto.nom" placeholder="Nom">
+                <label for="nom">Nom</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="prenom" name="prenom" [(ngModel)]="userDto.prenom" placeholder="Prenom">
+                <label for="prenom">Prenom</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="userDto.email" placeholder="E-mail">
+                <label for="email">Email</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="adresse" name="adresse" [(ngModel)]="userDto.adresse" placeholder="Adresse">
+                <label for="adresse">Adresse</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="numTelephone" name="numTelephone" [(ngModel)]="userDto.numTelephone" placeholder="Numéro du téléphone">
+                <label for="numTelephone">Numéro du téléphone</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="dateNaissance" name="dateNaissance" [(ngModel)]="userDto.dateNaissance" placeholder="Date de naissance">
+                <label for="dateNaissance">Date de naissance</label>
+            </div>
+            <div class="form-floating mb-3 d-flex align-items-center">
+                <input
+                  type="{{ showPassword1 ? 'text' : 'password' }}"
+                  class="form-control flex-grow-1"
+                  id="motDePasse"
+                  placeholder="Mot de passe"
+                  [(ngModel)]="userDto.motDePasse"
+                  name="motDePasse"
+                  required
+                />
+                <label for="motDePasse">Mot de passe</label>
+                <span class="password-toggle-icon" (click)="togglePasswordVisibility1()">
+                  <i class="fas" [ngClass]="showPassword1 ? 'fa-eye-slash' : 'fa-eye'"></i>
+                </span>
+              </div>
+              <div class="form-floating d-flex align-items-center">
+                <input
+                  type="{{ showPassword2 ? 'text' : 'password' }}"
+                  class="form-control flex-grow-1"
+                  id="password2"
+                  placeholder="Confirmer mot de passe"
+                  [(ngModel)]="password2"
+                  name="password2"
+                  required
+                />
+                <label for="password2">Confirmer mot de passe</label>
+                <span class="password-toggle-icon" (click)="togglePasswordVisibility2()">
+                  <i class="fas" [ngClass]="showPassword2 ? 'fa-eye-slash' : 'fa-eye'"></i>
+                </span>
+              </div>
+            <div class="form-floating mb-3">
+                <select class="form-select" aria-label="Default select example" id="role" name="role" [(ngModel)]="role">
+                    <option [ngValue]="null" disabled>Selectez un role</option>
+                    <option [ngValue]="roleValues[0]">USER</option>
+                    <option [ngValue]="roleValues[1]">ADMIN</option>
+                </select>
+            </div>
+            <!--
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="numTelephone" name="numTelephone" [(ngModel)]="entrepriseDto.numTelephone" placeholder="Numéro du téléphone">
+                <label for="numTelephone">Numéro du téléphone</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="siteWeb" name="siteWeb" [(ngModel)]="entrepriseDto.siteWeb" placeholder="Site Web">
+                <label for="siteWeb">Site Web</label>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea type="text" class="form-control" id="description" name="description" [(ngModel)]="entrepriseDto.description" placeholder="Description"></textarea>
+                <label for="description">Description</label>
+            </div>
+        -->
+            <!--<br>
+            <div class="form-floating d-flex align-items-center">
+                <input
+                  type="{{ showPassword1 ? 'text' : 'password' }}"
+                  class="form-control flex-grow-1"
+                  id="motDePasse"
+                  placeholder="Mot de passe"
+                  [(ngModel)]="password1"
+                  name="motDePasse"
+                  required
+                />
+                <label for="floatingPassword">Mot de passe</label>
+                <span class="password-toggle-icon" (click)="togglePasswordVisibility1()">
+                  <i class="fas" [ngClass]="showPassword1 ? 'fa-eye-slash' : 'fa-eye'"></i>
+                </span>
+              </div>
+              <div class="form-floating d-flex align-items-center">
+                <input
+                  type="{{ showPassword2 ? 'text' : 'password' }}"
+                  class="form-control flex-grow-1"
+                  id="floatingPasswordConf"
+                  placeholder="Confirmer mot de passe"
+                  [(ngModel)]="password2"
+                  name="passwordConf"
+                  required
+                />
+                <label for="floatingPasswordConf">Confirmer mot de passe</label>
+                <span class="password-toggle-icon" (click)="togglePasswordVisibility2()">
+                  <i class="fas" [ngClass]="showPassword2 ? 'fa-eye-slash' : 'fa-eye'"></i>
+                </span>
+              </div>-->
+              
+              
+            <br><br>
+            <div class="d-flex justify-content-between">
+                <a routerLink="/login" class="btn btn-link">Se connecter</a>
+                <button type="button" class="btn btn-primary" (click)="inscrire()"><i class="fa-regular fa-square-check" style="color: #ffffff;"></i> &nbsp;S'inscrire </button>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,72 @@
+<div class="row mb-1 border-edit">
+    <div class="col-md-2 m-0 text-center">
+        <div class="border-right">
+            <img [src]="articleDto.image ? articleDto.image : 'assets/productImg.png'" height="100px" width="100px">
+        </div>
+    </div>
+    <div class="col-md-3 m-0 border-right">
+        <div class="col">
+            <div class="row">
+                <div><i class="fa-solid fa-barcode"></i>&nbsp;&nbsp;<i>Nom:</i> {{articleDto.nomArticle}} | <i>Code:</i> {{articleDto.codeArticle}}</div>
+            </div>
+            <div class="row">
+                <div><i class="fa-solid fa-circle-info"></i>&nbsp;&nbsp;{{articleDto.description}}</div>
+            </div>
+            <div class="row">
+                <div class="mr-2"><i class="fa-solid fa-coins"></i>&nbsp;&nbsp;<i>Prix HT:</i> {{articleDto.prixUnitaireHT}}&nbsp; <img src="assets/dinarTNicon.png" width="11px" height="13px"></div>
+            </div>
+            <div class="row">
+                <div class="mr-2"><i class="fa-solid fa-coins"></i>&nbsp;&nbsp;<i>Prix TTC:</i> {{articleDto.prixUnitaireTTC}}&nbsp; <img src="assets/dinarTNicon.png" width="11px" height="13px"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 m-0 d-flex align-items-center justify-content-center border-right">
+        <div class="row">
+            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <u>Categorie</u>
+                </div>
+                <div class="row" *ngIf="articleDto.type">
+                    {{ articleDto.type }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 m-0 d-flex align-items-center justify-content-center">
+        <div class="row">
+            <div class="col-md-4 ">
+                <button type="button" class="btn btn-link" (click)="editArticle()"><i class="fa-solid fa-pencil"></i>Modifier</button>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-link text-danger" data-bs-toggle="modal" [attr.data-bs-target]="'#deleteArticleModal' + articleDto.id"><i class="fa-regular fa-trash-can"></i>Supprimer</button>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-link"><i class="fa-solid fa-clipboard-list"></i>Details</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteArticleModal{{articleDto.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirmer la suppression</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Est-ce que vous etes sur de supprimer cet article ? <u>Il sera supprimer definitivement !!</u>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i>Annuler</button>
+                    <button type="button" class="btn btn-danger" (click)="confSuppressionArticle()" data-bs-dismiss="modal"><i class="fa-regular fa-trash-can"></i>Supprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,71 @@
+<div class="row mb-1">
+    <div class="col-md-2 m-0 text-center">
+        <div class="border-right">
+            <img src="assets/{{origin}}Img.png" height="100px" width="100px">
+        </div>
+    </div>
+    <div class="col-md-3 m-0 d-flex align-items-center justify-content-center border-right">
+        <div class="col" *ngIf="clientFournisseur?.nom">
+            <div class="row">
+                <div><i class="fa-solid fa-address-card"></i>&nbsp;&nbsp;{{clientFournisseur.nom}}</div>
+            </div>
+            <div class="row">
+                <div><i class="fa-solid fa-address-card"></i>&nbsp;&nbsp;{{clientFournisseur.prenom}}</div>
+            </div>
+            <div class="row">
+                <div><i class="fa-solid fa-square-phone"></i>&nbsp;&nbsp;{{clientFournisseur.numTelephone}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 m-0 d-flex align-items-center justify-content-center border-right">
+        <div class="col">
+            <div class="row" *ngIf="origin === 'client'">
+                <div><i class="fa-solid fa-qrcode"></i>&nbsp;&nbsp;{{commande.codeCC}}</div>
+            </div>
+            <div class="row" *ngIf="origin === 'fournisseur'">
+                <div><i class="fa-solid fa-qrcode"></i>&nbsp;&nbsp;{{commande.codeCF}}</div>
+            </div>
+            <div class="row">
+                <div><i class="fa-solid fa-calendar"></i>&nbsp;&nbsp;{{commande.dateCommande}}</div>
+            </div>
+            <div class="row">
+                <div><i class="fa-solid fa-truck"></i>&nbsp;&nbsp;{{commande.etatCommande}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 m-0 d-flex align-items-center justify-content-center">
+        <div class="row">
+            <div class="col-md-5">
+                <button type="button" class="btn btn-link" (click)="modifierClick()"><i class="fa-solid fa-sliders"></i><br>Modifier</button>
+            </div>
+            <div class="col-md-5">
+                <button type="button" class="btn btn-link" data-bs-toggle="modal" [attr.data-bs-target]="'#deleteCmdModal' + commande.id">
+                    <i class="fa-solid fa-ban"></i><br>Supprimer
+                </button>
+            </div>
+            <div class="col-md-2">
+                <!--<button class="accordion-button d-flex align-items-center justify-content-center border-0" type="button" style="height: 25px; width: 25px;" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></button>-->
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="deleteCmdModal{{commande.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirmer la suppression</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Est-ce que vous etes sur de supprimer cette commande ? <u>Elle sera supprimer definitivement !!</u>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-ban"></i>Annuler</button>
+                <button type="button" class="btn btn-danger" (click)="confSuppressionCmd()" data-bs-dismiss="modal"><i class="fa-regular fa-trash-can"></i>Supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
