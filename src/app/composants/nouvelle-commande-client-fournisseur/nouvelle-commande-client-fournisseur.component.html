@@ -18,9 +18,9 @@
                         <label for="date"><i class="fa-solid fa-calendar"></i>&nbsp;Date de la commande</label>
                     </div>
                     <div class="row form-floating mb-3">
-                        <select class="form-select form-select-sm" aria-label="Small select example" name="cltFrs" [(ngModel)]="selectedClientFournisseur" (change)="generateCommandCode()">
-                        <option [value]="{}" selected disabled >Selectionner le {{origin}}</option>
-                        <option *ngFor="let obj of listClientsFournisseurs" [ngValue]="obj">{{ obj.nom }}&nbsp;{{ obj.prenom }}</option>
+                        <select class="form-select form-select-sm" aria-label="Small select example" name="cltFrs" id="cltFrs" [(ngModel)]="selectedClientFournisseur" (change)="generateCommandCode()">
+                            <option [value]="{}" selected disabled >Selectionner le {{origin}}</option>
+                            <option *ngFor="let obj of listClientsFournisseurs" [ngValue]="obj">{{ obj.nom }}&nbsp;{{ obj.prenom }}</option>
                         </select>
                     </div>
                 </form>
@@ -30,7 +30,7 @@
                     <div class="col-md-2">
                         <i class="fa-solid fa-address-card"></i>
                     </div>
-                    <div class="col-md-12" *ngIf="selectedClientFournisseur.nom">
+                    <div class="col-md-10" *ngIf="selectedClientFournisseur.nom">
                         {{ selectedClientFournisseur.nom }} {{ selectedClientFournisseur.prenom }}
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                     <div class="col-md-2">
                         <i class="fa-solid fa-envelope"></i>
                     </div>
-                    <div class="col-md-12" *ngIf="selectedClientFournisseur.email">
+                    <div class="col-md-10" *ngIf="selectedClientFournisseur.email">
                         {{ selectedClientFournisseur.email }}
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                     <div class="col-md-2">
                         <i class="fa-solid fa-square-phone"></i>
                     </div>
-                    <div class="col-md-12" *ngIf="selectedClientFournisseur.numTelephone">
+                    <div class="col-md-10" *ngIf="selectedClientFournisseur.numTelephone">
                         {{ selectedClientFournisseur.numTelephone }}
                     </div>
                 </div>
@@ -54,8 +54,18 @@
                     <div class="col-md-2">
                         <i class="fa-solid fa-hourglass-half"></i>
                     </div>
-                    <div class="col-md-12">
-                        EN PREPARATION
+                    <div class="col-md-10">
+                        <div class="row mb-1">
+                            Etat de la commande
+                        </div>
+                        <div class="row" *ngIf="newOrEdit === 'Modification de'">
+                            <select class="form-select form-select-sm" aria-label="Small select example" name="etatCmd" id="etatCmd" [(ngModel)]="etatCmd">
+                                <option *ngFor="let obj of listEtatCmd" [ngValue]="obj">{{ obj }}</option>
+                            </select>
+                        </div>
+                        <div class="row" *ngIf="newOrEdit === 'Nouvelle'">
+                            EN PREPARATION
+                        </div>
                     </div>
                 </div>
             </div>

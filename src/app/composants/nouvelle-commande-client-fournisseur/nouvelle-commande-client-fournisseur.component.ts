@@ -43,6 +43,8 @@ export class NouvelleCommandeClientFournisseurComponent implements OnInit {
   checkArtExistance = false;
   errorMsg = '';
   stockReelArt: number = 0;
+  listEtatCmd: Array<EtatCommande> = [EtatCommande.EN_PREPARATION, EtatCommande.VALIDEE, EtatCommande.LIVREE];
+  etatCmd: EtatCommande = EtatCommande.EN_PREPARATION;
 
   defaultImg = '';
 
@@ -68,8 +70,10 @@ export class NouvelleCommandeClientFournisseurComponent implements OnInit {
           res => {
             this.commande = res;
             this.codeCommande = res.codeCC!;
+            this.etatCmd = res.etatCommande!;
             this.findCltFrs();
             this.findLignesCmd(this.commande.id);
+            this.calculerTotalCommande()
           }
         );
       }else{
@@ -77,8 +81,10 @@ export class NouvelleCommandeClientFournisseurComponent implements OnInit {
           res => {
             this.commande = res;
             this.codeCommande = res.codeCF!;
+            this.etatCmd = res.etatCommande!;
             this.findCltFrs();
             this.findLignesCmd(this.commande.id);
+            this.calculerTotalCommande()
           }
         );
       }
@@ -426,7 +432,7 @@ export class NouvelleCommandeClientFournisseurComponent implements OnInit {
         id: this.commande.id,
         codeCC: this.codeCommande,
         dateCommande: new Date(),
-        etatCommande: EtatCommande.EN_PREPARATION,
+        etatCommande: this.etatCmd,
         client: this.selectedClientFournisseur,
         ligneCommandeClients: this.lignesCommande.map(ligne => ({
           article: ligne.article,
@@ -440,7 +446,7 @@ export class NouvelleCommandeClientFournisseurComponent implements OnInit {
         id: this.commande.id,
         codeCF: this.codeCommande,
         dateCommande: new Date(),
-        etatCommande: EtatCommande.EN_PREPARATION,
+        etatCommande: this.etatCmd,
         fournisseur: this.selectedClientFournisseur,
         ligneCommandeFournisseurs: this.lignesCommande.map(ligne => ({
           article: ligne.article,
